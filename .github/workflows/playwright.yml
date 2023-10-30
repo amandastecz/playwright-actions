@@ -1,14 +1,17 @@
 name: Playwright Tests
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
 jobs:
-  build:
+  test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test_set:
+          - e2e
+          - api
     steps:
     - name: Get code
       uses: actions/checkout@v3
@@ -23,28 +26,14 @@ jobs:
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-  e2e-tests:
-    timeout-minutes: 60
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Run Playwright tests e2e
-      run: npx playwright e2e e2e
 
-    - name: Publish HTML Report
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
-  api-tests:
-    timeout-minutes: 60
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-    - name: Run Playwright tests api
-      run: npx playwright e2e api
+    - name: Run tests
+      run: |
+          if [ ${{ matrix.test_set }} == 'e2e' ]; then
+            npx playwright test e2e
+          elif [ ${{ matrix.test_set }} == 'api' ]; then
+            npx playwright test api
+          fi
     - name: Publish HTML Report
       uses: actions/upload-artifact@v3
       if: always()

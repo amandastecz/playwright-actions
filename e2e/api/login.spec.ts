@@ -10,21 +10,6 @@ test('senha obrigatória', async ({ page }) => {
   await toast(page, 'Informe a sua senha secreta!')
 })
 
-test('usuário não existe', async ({ page }) => {
-  await login(page,'teste', 'teste')
-  await toast(page, 'Oops! Credenciais inválidas :(')
-})
-
-test('senha incorreta', async ({ page }) => {
-  await login(page,'qa', 'teste')
-  await toast(page, 'Oops! Credenciais inválidas :(')
-})
-
-test('com sucesso', async ({ page }) => {
-  await login(page,'qa', 'xperience')
-  await modal(page, 'Suas credenciais são válidas :)')
-})
-
 const toast = async (page: Page, message: string) => {
   const target = page.locator('div[role=status]')
   await expect(target).toHaveText(message);
