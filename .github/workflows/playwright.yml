@@ -8,6 +8,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         test_set:
           - e2e
