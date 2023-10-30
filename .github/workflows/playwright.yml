@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run Playwright tests e2e
-      run: npx playwright test e2e
+      run: npx playwright e2e e2e
 
     - name: Publish HTML Report
       uses: actions/upload-artifact@v3
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Run Playwright tests api
-      run: npx playwright test api
+      run: npx playwright e2e api
     - name: Publish HTML Report
       uses: actions/upload-artifact@v3
       if: always()
