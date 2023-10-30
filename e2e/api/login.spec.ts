@@ -5,18 +5,13 @@ test('usuário obrigatório', async ({ page }) => {
   await toast(page, 'Informe o seu nome de usuário!')
 });
 
-test('senha obrigatória', async ({ page }) => {
+test('api - senha obrigatória', async ({ page }) => {
   await login(page,'qa', '')
   await toast(page, 'Informe a sua senha secreta!')
 })
 
 const toast = async (page: Page, message: string) => {
   const target = page.locator('div[role=status]')
-  await expect(target).toHaveText(message);
-}
-
-const modal = async (page: Page, message: string) => {
-  const target = page.locator('.swal2-html-container')
   await expect(target).toHaveText(message);
 }
 
