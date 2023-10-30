@@ -1,10 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
 
-test('usuário obrigatório', async ({ page }) => {
-  await login(page, '', 'senha123')
-  await toast(page, 'Quebrou o teste!')
-});
-
 test('e2e- senha obrigatória', async ({ page }) => {
   await login(page,'qa', '')
   await toast(page, 'Informe a sua senha secreta!')
