@@ -10,9 +10,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        test_set:
-          - e2e
-          - api
+        test-group:
+          [
+            api,
+            e2e,
+          ]
     steps:
     - name: Get code
       uses: actions/checkout@v3
@@ -29,12 +31,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run tests
-      run: |
-          if [ ${{ matrix.test_set }} == 'e2e' ]; then
-            npx playwright test e2e
-          elif [ ${{ matrix.test_set }} == 'api' ]; then
-            npx playwright test api
-          fi
+      rrun: npm test -- tests/${{ matrix.test-group }}/
     - name: Publish HTML Report
       uses: actions/upload-artifact@v3
       if: always()
