@@ -31,7 +31,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run tests
-      run: npm test -- tests/${{ matrix.test-group }}/
+      run: npx playwright test ${{ matrix.test-group }}
     - name: Publish HTML Report
       uses: actions/upload-artifact@v3
       if: always()
